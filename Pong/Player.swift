@@ -15,7 +15,7 @@ class Player {
     
     var shapeNode:SKShapeNode
     var physicsBody:SKPhysicsBody
-    var movementSpeed:CGFloat = 0.0
+    var movementSpeed:CGFloat = 10
     
     init (scene:SKScene, y:CGFloat, positionX:CGFloat) {
         self.scene = scene
@@ -63,7 +63,7 @@ class Player {
     }
     
     func velocityX(velX:CGFloat) {
-        physicsBody.velocity.dx = velX
+        physicsBody.velocity.dx = velX * movementSpeed
     }
     
     func velocityY(velY:CGFloat) {

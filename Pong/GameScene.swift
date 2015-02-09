@@ -26,6 +26,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var topBorder:TopBorder?
     var bottomBorder:BottomBorder?
     
+    var label:SKLabelNode?
+    
     override init (size:CGSize) {
         super.init(size: size)
     }
@@ -53,6 +55,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         topBorder = TopBorder(scene: self)
         bottomBorder = BottomBorder(scene: self)
+        
+        label = SKLabelNode(text: "\(collisionTop)")
+        label?.position.x = 20
+        label?.position.y = 10
+        addChild(label!)
     }
     
     func didBeginContact(contact:SKPhysicsContact) {
@@ -61,30 +68,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         switch categoryMask {
         case BitMasks.TopBorder | BitMasks.Ball:
             collisionTop += 1
+            label!.text = "\(collisionTop)"
             println("Ball collided with top border")
         case BitMasks.BottomBorder | BitMasks.Ball:
             collisionBottom += 1
             println("Ball collided with bottom border")
+        case BitMasks.Player | BitMasks.Ball:
+            ball?.physicsBody.velocity.dx = CGFloat(arc4random_uniform(10)) * 100
         default:
             println("Irrelevant collision")
         }
-        
-//        var firstBody:SKPhysicsBody
-//        var secondBody:SKPhysicsBody
-//        
-//        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-//            firstBody = contact.bodyA
-//            secondBody = contact.bodyB
-//        } else {
-//            firstBody = contact.bodyB
-//            secondBody = contact.bodyA
-//        }
-//        
-//        if firstBody.categoryBitMask == BitMasks.Ball && secondBody.categoryBitMask == BitMasks.World {
-//            println("Ball collided with world")
-//        } else {
-//            println("Detected irrelevant collision")
-//        }
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
