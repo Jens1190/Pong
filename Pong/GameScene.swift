@@ -9,6 +9,9 @@
 import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    var collisionTop:Int = 0
+    var collisionBottom:Int = 0
    
     var customSpeed:CGFloat = 20
     var movementspeed:CGFloat = 20;
@@ -19,6 +22,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerElement:Player?
     var opponent:Player?
     var ball:Ball?
+    
+    var topBorder:TopBorder?
+    var bottomBorder:BottomBorder?
     
     override init (size:CGSize) {
         super.init(size: size)
@@ -35,6 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsBody = physicsBody
         
         self.physicsBody?.categoryBitMask = BitMasks.World
+        self.physicsBody?.contactTestBitMask = BitMasks.Ball
         
         backgroundColor = UIColor.blackColor()
         
@@ -43,25 +50,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerElement = Player(scene: self, y: 10, positionX: center)
         opponent = Player(scene: self, y: self.frame.height - 20, positionX: center)
         ball = Ball(scene: self)
+        
+        topBorder = TopBorder(scene: self)
+        bottomBorder = BottomBorder(scene: self)
     }
     
     func didBeginContact(contact:SKPhysicsContact) {
-        var firstBody:SKPhysicsBody
-        var secondBody:SKPhysicsBody
+        let categoryMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         
-        if contact.bodyA.categoryBitMask > contact.bodyB.categoryBitMask {
-            firstBody = contact.bodyA
-            secondBody = contact.bodyB
-        } else {
-            firstBody = contact.bodyB
-            secondBody = contact.bodyA
+        switch categoryMask {
+        case BitMasks.TopBorder | BitMasks.Ball:
+            collisionTop += 1
+            println("Ball collided with top border")
+        case BitMasks.BottomBorder | BitMasks.Ball:
+            collisionBottom += 1
+            println("Ball collided with bottom border")
+        default:
+            println("Irrelevant collision")
         }
         
-        if firstBody.categoryBitMask == BitMasks.Ball && secondBody.categoryBitMask == BitMasks.World {
-            println("Ball collided with world")
-        } else {
-            println("Detected irrelevant collision")
-        }
+//        var firstBody:SKPhysicsBody
+//        var secondBody:SKPhysicsBody
+//        
+//        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+//            firstBody = contact.bodyA
+//            secondBody = contact.bodyB
+//        } else {
+//            firstBody = contact.bodyB
+//            secondBody = contact.bodyA
+//        }
+//        
+//        if firstBody.categoryBitMask == BitMasks.Ball && secondBody.categoryBitMask == BitMasks.World {
+//            println("Ball collided with world")
+//        } else {
+//            println("Detected irrelevant collision")
+//        }
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {

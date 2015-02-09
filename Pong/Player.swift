@@ -35,6 +35,8 @@ class Player {
         physicsBody.restitution = 0
         physicsBody.mass = 0.1
         
+        physicsBody.categoryBitMask = BitMasks.Player
+        
         shapeNode.physicsBody = physicsBody
         
         scene.addChild(shapeNode)

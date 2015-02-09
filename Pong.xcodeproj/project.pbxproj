@@ -16,6 +16,8 @@
 		F7B20C6D1A84E7AE008B3120 /* PongTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B20C6C1A84E7AE008B3120 /* PongTests.swift */; };
 		F7B5E6901A8892DA00A9B1A5 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B5E68F1A8892DA00A9B1A5 /* Ball.swift */; };
 		F7B5E6921A88981400A9B1A5 /* BitMasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B5E6911A88981400A9B1A5 /* BitMasks.swift */; };
+		F7B5E6941A88B0AE00A9B1A5 /* TopBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B5E6931A88B0AE00A9B1A5 /* TopBorder.swift */; };
+		F7B5E6961A88B31000A9B1A5 /* BottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B5E6951A88B31000A9B1A5 /* BottomBorder.swift */; };
 		F7FFC34B1A85047B0015982A /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FFC34A1A85047B0015982A /* Player.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 		F7B20C6C1A84E7AE008B3120 /* PongTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PongTests.swift; sourceTree = "<group>"; };
 		F7B5E68F1A8892DA00A9B1A5 /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		F7B5E6911A88981400A9B1A5 /* BitMasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitMasks.swift; sourceTree = "<group>"; };
+		F7B5E6931A88B0AE00A9B1A5 /* TopBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBorder.swift; sourceTree = "<group>"; };
+		F7B5E6951A88B31000A9B1A5 /* BottomBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBorder.swift; sourceTree = "<group>"; };
 		F7FFC34A1A85047B0015982A /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +132,8 @@
 				F7FFC34A1A85047B0015982A /* Player.swift */,
 				F7B5E68F1A8892DA00A9B1A5 /* Ball.swift */,
 				F7B5E6911A88981400A9B1A5 /* BitMasks.swift */,
+				F7B5E6931A88B0AE00A9B1A5 /* TopBorder.swift */,
+				F7B5E6951A88B31000A9B1A5 /* BottomBorder.swift */,
 			);
 			name = Elements;
 			sourceTree = "<group>";
@@ -232,7 +238,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7B5E6961A88B31000A9B1A5 /* BottomBorder.swift in Sources */,
 				F7FFC34B1A85047B0015982A /* Player.swift in Sources */,
+				F7B5E6941A88B0AE00A9B1A5 /* TopBorder.swift in Sources */,
 				F7B20C571A84E7AE008B3120 /* GameScene.swift in Sources */,
 				F7B5E6901A8892DA00A9B1A5 /* Ball.swift in Sources */,
 				F7B5E6921A88981400A9B1A5 /* BitMasks.swift in Sources */,

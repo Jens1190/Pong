@@ -11,7 +11,7 @@ import SpriteKit
 
 class Ball {
     
-    var customSpeed:CGFloat = 5
+    var customSpeed:CGFloat = 15
     
     var ball:SKShapeNode
     var physicsBody:SKPhysicsBody
@@ -20,8 +20,8 @@ class Ball {
     init(scene:SKScene) {
         self.scene = scene
 
-        ball = SKShapeNode(circleOfRadius: 15)
-        physicsBody = SKPhysicsBody(circleOfRadius: 15)
+        ball = SKShapeNode(circleOfRadius: 8)
+        physicsBody = SKPhysicsBody(circleOfRadius: 8)
         
         ball.fillColor = UIColor.greenColor()
         ball.lineWidth = 0
@@ -29,7 +29,7 @@ class Ball {
         ball.position.x = scene.frame.width / 2 - ball.frame.width / 2 + 10
         ball.position.y = scene.frame.height / 2 - ball.frame.height / 2
         
-        physicsBody = SKPhysicsBody(circleOfRadius: 15)
+        physicsBody = SKPhysicsBody(circleOfRadius: 8)
         physicsBody.dynamic = true
         physicsBody.allowsRotation = false
         physicsBody.affectedByGravity = false
