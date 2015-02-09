@@ -14,6 +14,9 @@
 		F7B20C5E1A84E7AE008B3120 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7B20C5D1A84E7AE008B3120 /* Images.xcassets */; };
 		F7B20C611A84E7AE008B3120 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7B20C5F1A84E7AE008B3120 /* LaunchScreen.xib */; };
 		F7B20C6D1A84E7AE008B3120 /* PongTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B20C6C1A84E7AE008B3120 /* PongTests.swift */; };
+		F7B5E6901A8892DA00A9B1A5 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B5E68F1A8892DA00A9B1A5 /* Ball.swift */; };
+		F7B5E6921A88981400A9B1A5 /* BitMasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B5E6911A88981400A9B1A5 /* BitMasks.swift */; };
+		F7FFC34B1A85047B0015982A /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FFC34A1A85047B0015982A /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,9 @@
 		F7B20C661A84E7AE008B3120 /* PongTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PongTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7B20C6B1A84E7AE008B3120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7B20C6C1A84E7AE008B3120 /* PongTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PongTests.swift; sourceTree = "<group>"; };
+		F7B5E68F1A8892DA00A9B1A5 /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
+		F7B5E6911A88981400A9B1A5 /* BitMasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitMasks.swift; sourceTree = "<group>"; };
+		F7FFC34A1A85047B0015982A /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +85,7 @@
 		F7B20C4F1A84E7AE008B3120 /* Pong */ = {
 			isa = PBXGroup;
 			children = (
+				F7FFC3491A8504590015982A /* Elements */,
 				F7B20C521A84E7AE008B3120 /* AppDelegate.swift */,
 				F7B20C561A84E7AE008B3120 /* GameScene.swift */,
 				F7B20C581A84E7AE008B3120 /* GameViewController.swift */,
@@ -113,6 +120,16 @@
 				F7B20C6B1A84E7AE008B3120 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F7FFC3491A8504590015982A /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				F7FFC34A1A85047B0015982A /* Player.swift */,
+				F7B5E68F1A8892DA00A9B1A5 /* Ball.swift */,
+				F7B5E6911A88981400A9B1A5 /* BitMasks.swift */,
+			);
+			name = Elements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,7 +232,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7FFC34B1A85047B0015982A /* Player.swift in Sources */,
 				F7B20C571A84E7AE008B3120 /* GameScene.swift in Sources */,
+				F7B5E6901A8892DA00A9B1A5 /* Ball.swift in Sources */,
+				F7B5E6921A88981400A9B1A5 /* BitMasks.swift in Sources */,
 				F7B20C591A84E7AE008B3120 /* GameViewController.swift in Sources */,
 				F7B20C531A84E7AE008B3120 /* AppDelegate.swift in Sources */,
 			);
@@ -411,6 +431,7 @@
 				F7B20C721A84E7AE008B3120 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F7B20C731A84E7AE008B3120 /* Build configuration list for PBXNativeTarget "PongTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +440,7 @@
 				F7B20C751A84E7AE008B3120 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
