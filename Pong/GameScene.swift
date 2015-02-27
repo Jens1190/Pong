@@ -112,6 +112,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         playerElement!.move(newLocation)
     }
+    
+    func setBallPosition(x:String,y:String) {
+        let _x :CGFloat = CGFloat(NSNumberFormatter().numberFromString(x)!)
+        let _y :CGFloat = CGFloat(NSNumberFormatter().numberFromString(y)!)
+        ball!.setX(_x)
+        ball!.setY(_y)
+    }
    
     override func update(currentTime: CFTimeInterval) {
         if playerElement!.getX() + playerElement!.getWidth() > self.frame.width {

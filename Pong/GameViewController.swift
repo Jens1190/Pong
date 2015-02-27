@@ -15,17 +15,19 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     var firstFlag : Bool = false
     var isServer:Bool = false
 
+    var scene:GameScene?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let scene = GameScene(size: view.bounds.size, viewController: self)
+        
+        scene = GameScene(size: view.bounds.size, viewController: self)
         let skView = view as SKView
         skView.showsFPS = true
         skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
         skView.showsPhysics = false
-        scene.scaleMode = .ResizeFill
-        skView.presentScene(scene)
+        scene?.scaleMode = .ResizeFill
+        skView.presentScene(scene!)
         
         self.peerID = MCPeerID(displayName: UIDevice.currentDevice().name)
         self.session = MCSession(peer: peerID)
@@ -91,8 +93,12 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             // This needs to run on the main queue
             dispatch_async(dispatch_get_main_queue()) {
                 
-                var msg = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("\(msg!)")
+                var msg = NSString(data: data, encoding: NSUTF8StringEncoding)!
+                println("\(msg)")
+                
+                var myStringArr = msg.componentsSeparatedByString(";")
+                
+                scene?.setBallPosition(myStringArr[0], y: myStringArr[1])
                 
               //  self.updateChat(msg, fromPeer: peerID)
             }
