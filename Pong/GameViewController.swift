@@ -137,6 +137,8 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func advertiserAssistantWillPresentInvitation(advertiserAssistant: MCAdvertiserAssistant!) {
         isServer = true
         scene!.ball?.addPhysicsBody()
+        
+        browser!.browser.stopBrowsingForPeers()
     }
     
     func session(session: MCSession!, peer peerID: MCPeerID!,
