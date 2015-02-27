@@ -3,7 +3,7 @@ import SpriteKit
 import MultipeerConnectivity
 
 
-class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessionDelegate {
+class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessionDelegate, MCAdvertiserAssistantDelegate {
     
     let serviceType = "LCOC-Chat"
     
@@ -35,6 +35,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             session:self.session)
         
         self.browser.delegate = self;
+        self.browser.maximumNumberOfPeers = 2
         
         self.assistant = MCAdvertiserAssistant(serviceType:serviceType,
             discoveryInfo:nil, session:self.session)
@@ -114,6 +115,10 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func session(session: MCSession!, didReceiveStream stream: NSInputStream!,
         withName streamName: String!, fromPeer peerID: MCPeerID!)  {
             // Called when a peer establishes a stream with us
+    }
+    
+    func advertiserAssistantWillPresentInvitation(advertiserAssistant: MCAdvertiserAssistant!) {
+        println("Did receive invitation from")
     }
     
     func session(session: MCSession!, peer peerID: MCPeerID!,
