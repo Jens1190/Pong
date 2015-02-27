@@ -121,8 +121,9 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             
             
                 println("received stream")
-
-                while(true) {
+            
+                stream.open()
+            
                     let bufferSize = 1024
                     var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
                     
@@ -139,7 +140,6 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
                         println("Error: \(self.error)")
 
                     }
-            }
     }
     
     func advertiserAssistantWillPresentInvitation(advertiserAssistant: MCAdvertiserAssistant!) {
