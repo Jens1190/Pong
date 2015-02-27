@@ -122,7 +122,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             // Called when a peer establishes a stream with us
             stream.delegate = self
             self.inputstream = stream;
-            stream.scheduleInRunLoop(NSRunLoop.currentRunLoop(), forMode: NSDefaultRunLoopMode)
+            stream.scheduleInRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
             stream.open()
             
 //            let bufferSize = 1024
