@@ -39,6 +39,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         
         self.assistant = MCAdvertiserAssistant(serviceType:serviceType,
             discoveryInfo:nil, session:self.session)
+        self.assistant.delegate = self;
         
         // tell the assistant to start advertising our fabulous chat
         self.assistant.start()
