@@ -120,16 +120,23 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             // Called when a peer establishes a stream with us
             
             
-            println("received stream")
         
             stream.open()
             
+            println("received stream: \(stream.streamStatus.rawValue)")
+
             
             let bufferSize = 1024
             var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
-            
+
             while(true) {
+                
+      
+
             let bytesRead = stream.read(&buffer, maxLength: bufferSize)
+
+            println("read stream: \(stream.streamStatus.rawValue)")
+
             if bytesRead >= 0 {
                 var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
                 
@@ -156,6 +163,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             if (state.rawValue == 2 && isServer) {
                 println("Stream has been opened")
                 stream = self.session.startStreamWithName("client", toPeer: self.session.connectedPeers[0] as MCPeerID, error: &error)
+                stream?.open()
             }
             
     }
