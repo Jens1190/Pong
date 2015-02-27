@@ -53,7 +53,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         self.session.sendData(msg, toPeers: self.session.connectedPeers, withMode: MCSessionSendDataMode.Unreliable, error: &error)
         
         if error != nil {
-            println("\(error?.localizedDescription)")
+            //println("Error: \(error?.localizedDescription)")
         }
     }
     
@@ -92,7 +92,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             dispatch_async(dispatch_get_main_queue()) {
                 
                 var msg = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("\(msg)")
+                println("\(msg!)")
                 
               //  self.updateChat(msg, fromPeer: peerID)
             }
