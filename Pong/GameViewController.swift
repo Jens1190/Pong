@@ -120,26 +120,29 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             // Called when a peer establishes a stream with us
             
             
-                println("received stream")
+            println("received stream")
+        
+            stream.open()
             
-                stream.open()
             
-                    let bufferSize = 1024
-                    var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
-                    
-                    let bytesRead = stream.read(&buffer, maxLength: bufferSize)
-                    if bytesRead >= 0 {
-                        var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
-                        
-                        var myStringArr = output!.componentsSeparatedByString(";")
-                        println("Test: \(myStringArr)")
-                        
-                        self.scene?.setBallPosition(myStringArr[0] as String, y: myStringArr[1] as String)
-                    } else {
-                        // Handle error
-                        println("Error: \(self.error)")
+            let bufferSize = 1024
+            var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
+            
+            while(true) {
+            let bytesRead = stream.read(&buffer, maxLength: bufferSize)
+            if bytesRead >= 0 {
+                var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
+                
+                var myStringArr = output!.componentsSeparatedByString(";")
+                println("Test: \(myStringArr)")
+                
+                self.scene?.setBallPosition(myStringArr[0] as String, y: myStringArr[1] as String)
+            } else {
+                // Handle error
+                println("Error: \(self.error)")
 
-                    }
+            }
+            }
     }
     
     func advertiserAssistantWillPresentInvitation(advertiserAssistant: MCAdvertiserAssistant!) {
