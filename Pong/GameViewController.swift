@@ -118,18 +118,15 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             dispatch_async(dispatch_get_global_queue(priority, 0)) {
                 stream.open()
                 
-                let bufferSize = 35
+                let bufferSize = 11
                 var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
                 
                 while(true) {
                     let bytesRead = stream.read(&buffer, maxLength: bufferSize)
                     if bytesRead >= 0 {
                         var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
-                        output = output!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-                        output = output!.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet())
-                        println("START\n\(output!)\nEND")
-                        var elements = output!.componentsSeparatedByString("\r\n")
-                        var element = elements[elements.count - 1].componentsSeparatedByString(";")
+                        println("\(output!)")
+                        var element = output!.componentsSeparatedByString(";")
                         self.scene?.setBallPosition(element[0] as String, y: element[1] as String)
                     }
                 }
