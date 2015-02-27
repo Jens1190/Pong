@@ -60,6 +60,14 @@ class Ball {
         return ball.position.y
     }
     
+    func setX(_x:CGFloat) {
+         ball.position.x = _x
+    }
+    
+    func setY(_y:CGFloat) {
+         ball.position.y = _y
+    }
+    
     func setCustomSpeed(speed:CGFloat) {
         customSpeed = speed;
         
