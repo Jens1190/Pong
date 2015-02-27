@@ -145,7 +145,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if (viewController!.isServer) {
-            viewController?.sendData("\(ball!.getX());\(ball!.getY())\r\n")
+            viewController?.sendData("\(ball!.getX());\(ball!.getY())")
         }
     }
 }
