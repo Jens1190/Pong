@@ -56,6 +56,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         
         //self.session.sendData(msg, toPeers: self.session.connectedPeers, withMode: MCSessionSendDataMode.Unreliable, error: &error)
         
+        println("Sending \(msg)")
         stream?.write(UnsafePointer<UInt8>(msg.bytes), maxLength: msg.length)
         
         if error != nil {
