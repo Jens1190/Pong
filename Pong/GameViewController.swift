@@ -143,7 +143,8 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func session(session: MCSession!, peer peerID: MCPeerID!,
         didChangeState state: MCSessionState)  {
             // Called when a connected peer changes state (for example, goes offline)
-            if (state.rawValue == 2) {
+            if (state.rawValue == 2 && isServer) {
+                println("Stream has been opened")
                 stream = self.session.startStreamWithName("client", toPeer: self.session.connectedPeers[0] as MCPeerID, error: &error)
             }
             
