@@ -14,7 +14,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     
     var firstFlag : Bool = false
     var isServer:Bool = false
-
+    
     var scene:GameScene?
     
     var stream:NSOutputStream?
@@ -70,7 +70,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         }
         firstFlag = true
     }
- 
+    
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -118,37 +118,19 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func session(session: MCSession!, didReceiveStream stream: NSInputStream!,
         withName streamName: String!, fromPeer peerID: MCPeerID!)  {
             // Called when a peer establishes a stream with us
-            
-            
-        
             stream.open()
-            
-            println("received stream: \(stream.streamStatus.rawValue)")
-
             
             let bufferSize = 1024
             var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
-
-            while(true) {
-                
-      
-
-            let bytesRead = stream.read(&buffer, maxLength: bufferSize)
-
-            println("read stream: \(stream.streamStatus.rawValue)")
-
-            if bytesRead >= 0 {
-                var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
-                
-                var myStringArr = output!.componentsSeparatedByString(";")
-                println("Test: \(myStringArr)")
-                
-                self.scene?.setBallPosition(myStringArr[0] as String, y: myStringArr[1] as String)
-            } else {
-                // Handle error
-                println("Error: \(self.error)")
-
-            }
+            
+            while(stream.hasBytesAvailable) {
+                let bytesRead = stream.read(&buffer, maxLength: bufferSize)
+                if bytesRead >= 0 {
+                    var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
+                    println("\(output)")
+                    var myStringArr = output!.componentsSeparatedByString(";")
+                    self.scene?.setBallPosition(myStringArr[0] as String, y: myStringArr[1] as String)
+                }
             }
     }
     
@@ -161,12 +143,8 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         didChangeState state: MCSessionState)  {
             // Called when a connected peer changes state (for example, goes offline)
             if (state.rawValue == 2 && isServer) {
-                println("Stream has been opened")
                 stream = self.session.startStreamWithName("client", toPeer: self.session.connectedPeers[0] as MCPeerID, error: &error)
                 stream?.open()
             }
-            
     }
-
-
 }
