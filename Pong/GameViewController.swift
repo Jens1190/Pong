@@ -119,7 +119,8 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             // Called when a peer establishes a stream with us
             
             dispatch_async(dispatch_get_main_queue()) {
-                
+                println("received stream")
+
                 let bufferSize = 1024
                 var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
                 
@@ -128,9 +129,12 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
                     var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
                     
                     var myStringArr = output!.componentsSeparatedByString(";")
+                    println("Test: \(myStringArr)")
                     self.scene?.setBallPosition(myStringArr[0] as String, y: myStringArr[1] as String)
                 } else {
                     // Handle error
+                    println("Error: \(self.error)")
+
                 }
             }
     }
