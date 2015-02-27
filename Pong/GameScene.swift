@@ -69,16 +69,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case BitMasks.TopBorder | BitMasks.Ball:
             collisionTop += 1
             label!.text = "\(collisionTop)"
-            println("Ball collided with top border")
+//            println("Ball collided with top border")
 //            moveBallToCenter()
         case BitMasks.BottomBorder | BitMasks.Ball:
             collisionBottom += 1
-            println("Ball collided with bottom border")
+//            println("Ball collided with bottom border")
 //            moveBallToCenter()
         //case BitMasks.Player | BitMasks.Ball:
             //ball?.physicsBody.velocity.dx = CGFloat(arc4random_uniform(10)) * 100
         default:
-            println("Irrelevant collision")
+            println("")
+//            println("Irrelevant collision")
         }
     }
     

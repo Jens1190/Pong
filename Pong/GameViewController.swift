@@ -112,6 +112,8 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         didChangeState state: MCSessionState)  {
             // Called when a connected peer changes state (for example, goes offline)
             
+            println("Connection state changed \(state)")
+            
     }
 
 
