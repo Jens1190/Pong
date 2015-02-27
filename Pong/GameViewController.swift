@@ -3,7 +3,7 @@ import SpriteKit
 import MultipeerConnectivity
 
 
-class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessionDelegate, MCAdvertiserAssistantDelegate {
+class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessionDelegate, MCAdvertiserAssistantDelegate, NSStreamDelegate {
     
     let serviceType = "LCOC-Chat"
     
@@ -19,6 +19,8 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     
     var stream:NSOutputStream?
     var error : NSError?
+    
+    var inputstream:NSInputStream?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,20 +120,63 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func session(session: MCSession!, didReceiveStream stream: NSInputStream!,
         withName streamName: String!, fromPeer peerID: MCPeerID!)  {
             // Called when a peer establishes a stream with us
+            stream.delegate = self
+            self.inputstream = stream;
+            stream.scheduleInRunLoop(NSRunLoop.currentRunLoop(), forMode: NSDefaultRunLoopMode)
             stream.open()
             
-            let bufferSize = 1024
-            var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
-            
-            while(true) {
-                let bytesRead = stream.read(&buffer, maxLength: bufferSize)
-                if bytesRead >= 0 {
-                    var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
-                    println("\(output)")
-                    var myStringArr = output!.componentsSeparatedByString(";")
-                    self.scene?.setBallPosition(myStringArr[0] as String, y: myStringArr[1] as String)
+//            let bufferSize = 1024
+//            var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
+//            
+//            while(true) {
+//                let bytesRead = stream.read(&buffer, maxLength: bufferSize)
+//                if bytesRead >= 0 {
+//                    var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
+//                    println("\(output)")
+//                    var myStringArr = output!.componentsSeparatedByString(";")
+//                    self.scene?.setBallPosition(myStringArr[0] as String, y: myStringArr[1] as String)
+//                }
+//            }
+    }
+    
+    func stream(aStream: NSStream, handleEvent eventCode: NSStreamEvent) {
+        switch (eventCode){
+        case NSStreamEvent.ErrorOccurred:
+            NSLog("ErrorOccurred")
+            break
+        case NSStreamEvent.EndEncountered:
+            NSLog("EndEncountered")
+            break
+        case NSStreamEvent.None:
+            NSLog("None")
+            break
+        case NSStreamEvent.HasBytesAvailable:
+            NSLog("HasBytesAvaible")
+            var buffer = [UInt8](count: 4096, repeatedValue: 0)
+            if ( aStream == inputstream){
+                
+                while (inputstream!.hasBytesAvailable){
+                    var len = inputstream!.read(&buffer, maxLength: buffer.count)
+                    if(len > 0){
+                        var output = NSString(bytes: &buffer, length: buffer.count, encoding: NSUTF8StringEncoding)
+                        if (output != ""){
+                            NSLog("server said: %@", output!)
+                        }
+                    }
                 }
             }
+            break
+        case NSStreamEvent.allZeros:
+            NSLog("allZeros")
+            break
+        case NSStreamEvent.OpenCompleted:
+            NSLog("OpenCompleted")
+            break
+        case NSStreamEvent.HasSpaceAvailable:
+            NSLog("HasSpaceAvailable")
+            break
+        default: ()
+        }
     }
     
     func advertiserAssistantWillPresentInvitation(advertiserAssistant: MCAdvertiserAssistant!) {
