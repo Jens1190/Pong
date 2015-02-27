@@ -11,7 +11,7 @@ import SpriteKit
 
 class Ball {
     
-    var customSpeed:CGFloat = 15
+    var customSpeed:CGFloat = 35
     
     var ball:SKShapeNode
     var physicsBody:SKPhysicsBody
@@ -54,5 +54,28 @@ class Ball {
     
     func getX() -> CGFloat {
         return ball.position.x
+    }
+    
+    func setCustomSpeed(speed:CGFloat) {
+        customSpeed = speed;
+        
+        // TODO
+    }
+    
+    func setPause(pause:Bool) {
+        //physicsBody.pinned = pause
+    }
+    
+    func center() {
+        let width = scene.frame.width
+        let height = scene.frame.height
+    
+        let x = width / 2 - ball.frame.width / 2
+        let y = height / 2 - ball.frame.height / 2
+        
+        ball.physicsBody!.velocity.dx = 0
+        ball.physicsBody!.velocity.dy = 0
+        
+        ball.position = CGPointMake(x, y)
     }
 }

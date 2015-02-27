@@ -69,4 +69,8 @@ class Player {
     func velocityY(velY:CGFloat) {
         physicsBody.velocity.dy = velY
     }
+    
+    func setPause(pause:Bool) {
+        physicsBody.pinned = pause
+    }
 }

@@ -70,14 +70,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             collisionTop += 1
             label!.text = "\(collisionTop)"
             println("Ball collided with top border")
+            moveBallToCenter()
         case BitMasks.BottomBorder | BitMasks.Ball:
             collisionBottom += 1
             println("Ball collided with bottom border")
-        case BitMasks.Player | BitMasks.Ball:
-            ball?.physicsBody.velocity.dx = CGFloat(arc4random_uniform(10)) * 100
+            moveBallToCenter()
+        //case BitMasks.Player | BitMasks.Ball:
+            //ball?.physicsBody.velocity.dx = CGFloat(arc4random_uniform(10)) * 100
         default:
             println("Irrelevant collision")
         }
+    }
+    
+    func moveBallToCenter() {
+        ball?.center()
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -100,7 +106,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
         if playerElement!.getX() + playerElement!.getWidth() > self.frame.width {
             playerElement!.move(self.frame.width - playerElement!.getWidth())
         } else if playerElement!.getX() < 0 {
@@ -108,11 +113,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         // Calculation for movement speed of opponent
-        //other.position.x = ball.position.x - other.frame.width / 2
-        if (opponent!.getX() + opponent!.getWidth() / 2 < ball!.getX()) {
+        var posXCenter = ceil(opponent!.getX() + opponent!.getWidth() / 2);
+        var ballX = ceil(ball!.getX())
+        if (posXCenter < ballX - 10) {
             opponent!.velocityX(movementspeed)
-        } else {
+        } else if (posXCenter > ballX + 10) {
             opponent!.velocityX(-movementspeed)
+        } else {
+            opponent!.velocityX(0)
         }
         
         if opponent!.getX() + opponent!.getWidth() > self.frame.width {
