@@ -17,6 +17,9 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
 
     var scene:GameScene?
     
+    var stream:NSOutputStream?
+    var error : NSError?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,10 +52,11 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     }
     
     func sendData(data: String) {
-        let msg = data.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-        var error : NSError?
+        let msg = data.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
         
-        self.session.sendData(msg, toPeers: self.session.connectedPeers, withMode: MCSessionSendDataMode.Unreliable, error: &error)
+        //self.session.sendData(msg, toPeers: self.session.connectedPeers, withMode: MCSessionSendDataMode.Unreliable, error: &error)
+        
+        stream?.write(UnsafePointer<UInt8>(msg.bytes), maxLength: msg.length)
         
         if error != nil {
             //println("Error: \(error?.localizedDescription)")
@@ -91,16 +95,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             // Called when a peer sends an NSData to us
             
             // This needs to run on the main queue
-            dispatch_async(dispatch_get_main_queue()) {
-                if (data != nil) {
-                    var msg = NSString(data: data, encoding: NSUTF8StringEncoding)!
-                    println("\(msg)")
-                    var myStringArr = msg.componentsSeparatedByString(";")
-                    self.scene?.setBallPosition(myStringArr[0] as String, y: myStringArr[1] as String)
-                }
-                
-              //  self.updateChat(msg, fromPeer: peerID)
-            }
+            
     }
     
     // The following methods do nothing, but the MCSessionDelegate protocol
@@ -122,6 +117,22 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func session(session: MCSession!, didReceiveStream stream: NSInputStream!,
         withName streamName: String!, fromPeer peerID: MCPeerID!)  {
             // Called when a peer establishes a stream with us
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                
+                let bufferSize = 1024
+                var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
+                
+                let bytesRead = stream.read(&buffer, maxLength: bufferSize)
+                if bytesRead >= 0 {
+                    var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
+                    
+                    var myStringArr = output!.componentsSeparatedByString(";")
+                    self.scene?.setBallPosition(myStringArr[0] as String, y: myStringArr[1] as String)
+                } else {
+                    // Handle error
+                }
+            }
     }
     
     func advertiserAssistantWillPresentInvitation(advertiserAssistant: MCAdvertiserAssistant!) {
@@ -132,7 +143,9 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func session(session: MCSession!, peer peerID: MCPeerID!,
         didChangeState state: MCSessionState)  {
             // Called when a connected peer changes state (for example, goes offline)
-            
+            if (state.rawValue == 2) {
+                stream = self.session.startStreamWithName("client", toPeer: self.session.connectedPeers[0] as MCPeerID, error: &error)
+            }
             
     }
 
