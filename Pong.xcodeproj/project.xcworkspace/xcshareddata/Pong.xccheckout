@@ -5,13 +5,15 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>CBD259D5-34E8-4A84-AB9F-2365B9B87EF9</string>
+	<string>A72B267F-6565-4E7F-AA28-25DA4594AF18</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Pong</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>4E6A59E69C2673462955A85737383E4016CB3C39</key>
 		<string>https://github.com/Jens1190/Pong.git</string>
+		<key>badd9525-9d0b-472a-9560-fc3f133efd18++1581</key>
+		<string>https://www.oevonline.com/svn/mobil/statistik/StatistikDashboard/StatistikDashboard</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Pong.xcodeproj</string>
@@ -19,6 +21,13 @@
 	<dict>
 		<key>4E6A59E69C2673462955A85737383E4016CB3C39</key>
 		<string>../..</string>
+		<key>badd9525-9d0b-472a-9560-fc3f133efd18++1581</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>badd9525-9d0b-472a-9560-fc3f133efd18++1581</key>
+		<string>https://www.oevonline.com/svn/mobil</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/Jens1190/Pong.git</string>
@@ -28,6 +37,14 @@
 	<string>4E6A59E69C2673462955A85737383E4016CB3C39</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>badd9525-9d0b-472a-9560-fc3f133efd18++1581</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
