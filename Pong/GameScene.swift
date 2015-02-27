@@ -114,8 +114,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setBallPosition(x:String,y:String) {
-        let _x :CGFloat = CGFloat(NSNumberFormatter().numberFromString(x)!)
-        let _y :CGFloat = CGFloat(NSNumberFormatter().numberFromString(y)!)
+        var _x :CGFloat = CGFloat((x as NSString).floatValue)
+        var _y :CGFloat = CGFloat((y as NSString).floatValue)
         ball!.setX(_x)
         ball!.setY(_y)
     }

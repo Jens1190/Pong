@@ -92,13 +92,12 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             
             // This needs to run on the main queue
             dispatch_async(dispatch_get_main_queue()) {
-                
-                var msg = NSString(data: data, encoding: NSUTF8StringEncoding)!
-                println("\(msg)")
-                
-                var myStringArr = msg.componentsSeparatedByString(";")
-                
-                scene?.setBallPosition(myStringArr[0], y: myStringArr[1])
+                if (data != nil) {
+                    var msg = NSString(data: data, encoding: NSUTF8StringEncoding)!
+                    println("\(msg)")
+                    var myStringArr = msg.componentsSeparatedByString(";")
+                    self.scene?.setBallPosition(myStringArr[0] as String, y: myStringArr[1] as String)
+                }
                 
               //  self.updateChat(msg, fromPeer: peerID)
             }
@@ -127,6 +126,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     
     func advertiserAssistantWillPresentInvitation(advertiserAssistant: MCAdvertiserAssistant!) {
         isServer = true
+        scene!.ball?.addPhysicsBody()
     }
     
     func session(session: MCSession!, peer peerID: MCPeerID!,

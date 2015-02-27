@@ -29,6 +29,10 @@ class Ball {
         ball.position.x = scene.frame.width / 2 - ball.frame.width / 2 + 10
         ball.position.y = scene.frame.height / 2 - ball.frame.height / 2
         
+        scene.addChild(ball)
+    }
+    
+    func addPhysicsBody() {
         physicsBody = SKPhysicsBody(circleOfRadius: 8)
         physicsBody.dynamic = true
         physicsBody.allowsRotation = false
@@ -42,8 +46,6 @@ class Ball {
         physicsBody.contactTestBitMask = BitMasks.World
         
         ball.physicsBody = physicsBody
-        
-        scene.addChild(ball)
         
         var rnX = CGFloat(arc4random_uniform(10)) * customSpeed
         var rnY = CGFloat(arc4random_uniform(100)) * customSpeed
@@ -85,8 +87,8 @@ class Ball {
         let x = width / 2 - ball.frame.width / 2
         let y = height / 2 - ball.frame.height / 2
         
-        ball.physicsBody!.velocity.dx = 0
-        ball.physicsBody!.velocity.dy = 0
+        //ball.physicsBody!.velocity.dx = 0
+        //ball.physicsBody!.velocity.dy = 0
         
         ball.position = CGPointMake(x, y)
     }
