@@ -85,7 +85,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //case BitMasks.Player | BitMasks.Ball:
             //ball?.physicsBody.velocity.dx = CGFloat(arc4random_uniform(10)) * 100
         default:
-            println("")
+            ()
 //            println("Irrelevant collision")
         }
     }
