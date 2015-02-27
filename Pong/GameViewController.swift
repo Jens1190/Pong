@@ -41,10 +41,17 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         
         // tell the assistant to start advertising our fabulous chat
         self.assistant.start()
+    }
+    
+    func sendData(data: String) {
+        let msg = data.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        var error : NSError?
         
+        self.session.sendData(msg, toPeers: self.session.connectedPeers, withMode: MCSessionSendDataMode.Unreliable, error: &error)
         
-        
-
+        if error != nil {
+            println("\(error?.localizedDescription)")
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -82,6 +89,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             dispatch_async(dispatch_get_main_queue()) {
                 
                 var msg = NSString(data: data, encoding: NSUTF8StringEncoding)
+                println("\(msg)")
                 
               //  self.updateChat(msg, fromPeer: peerID)
             }
@@ -112,7 +120,8 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         didChangeState state: MCSessionState)  {
             // Called when a connected peer changes state (for example, goes offline)
             
-            println("Connection state changed \(state)")
+            println("Connection state changed \(state.rawValue)")
+            sendData("ich bin der server")
             
     }
 
