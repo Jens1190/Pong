@@ -28,6 +28,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var label:SKLabelNode?
     
+    var viewController:GameViewController?;
+    
+    init (size:CGSize, viewController:GameViewController) {
+        super.init(size: size)
+        self.viewController = viewController
+    }
+    
     override init (size:CGSize) {
         super.init(size: size)
     }
@@ -128,6 +135,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             opponent!.move(self.frame.width - opponent!.getWidth())
         } else if opponent!.getX() < 0 {
             opponent!.move(0)
+        }
+        
+        if (viewController!.isServer) {
+            viewController?.sendData("\(ball?.getX());\(ball?.getY())")
         }
     }
 }

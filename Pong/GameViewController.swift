@@ -13,11 +13,12 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     var peerID: MCPeerID!
     
     var firstFlag : Bool = false
+    var isServer:Bool = false
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let scene = GameScene(size: view.bounds.size)
+        let scene = GameScene(size: view.bounds.size, viewController: self)
         let skView = view as SKView
         skView.showsFPS = true
         skView.showsNodeCount = true
@@ -119,15 +120,13 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     }
     
     func advertiserAssistantWillPresentInvitation(advertiserAssistant: MCAdvertiserAssistant!) {
-        println("Did receive invitation from")
+        isServer = true
     }
     
     func session(session: MCSession!, peer peerID: MCPeerID!,
         didChangeState state: MCSessionState)  {
             // Called when a connected peer changes state (for example, goes offline)
             
-            println("Connection state changed \(state.rawValue)")
-            sendData("ich bin der server")
             
     }
 
