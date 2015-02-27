@@ -147,7 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if (viewController!.isServer) {
             var _x:NSString = NSString(format: "%.3f", ball!.getX());
             var _y:NSString = NSString(format: "%.3f", ball!.getY());
-            viewController?.sendData("\(_x);\(_y)\r\n")
+            viewController?.sendData("\(_x);\(_y)")
         }
     }
 }
