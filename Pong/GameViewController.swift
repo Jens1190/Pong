@@ -123,7 +123,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             let bufferSize = 1024
             var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
             
-            while(stream.hasBytesAvailable) {
+            while(true) {
                 let bytesRead = stream.read(&buffer, maxLength: bufferSize)
                 if bytesRead >= 0 {
                     var output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
