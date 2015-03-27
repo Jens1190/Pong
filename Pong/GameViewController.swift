@@ -135,6 +135,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     }
 
     func advertiserAssistantWillPresentInvitation(advertiserAssistant: MCAdvertiserAssistant!) {
+        println("Ich bin der Server")
         isServer = true
         scene!.ball?.addPhysicsBody()
         
@@ -147,6 +148,8 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             if (state.rawValue == 2 && isServer) {
                 stream = self.session.startStreamWithName("client", toPeer: self.session.connectedPeers[0] as MCPeerID, error: &error)
                 stream?.open()
+                
+                println("Connection to server successful")
             }
     }
 }
