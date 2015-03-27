@@ -54,7 +54,8 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func sendData(data: String) {
         let msg = data.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
         stream?.write(UnsafePointer<UInt8>(msg.bytes), maxLength: msg.length)
-        
+                println(msg.length)
+
         if error != nil {
             //println("Error: \(error?.localizedDescription)")
         }
