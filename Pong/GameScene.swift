@@ -120,11 +120,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball!.setY(_y)
     }
     
-    var lastUpdateTimeInterval:CFTimeInterval?
+    var lastUpdateTimeInterval:CFTimeInterval? = CFTimeInterval.abs(0)
    
     override func update(currentTime: CFTimeInterval) {
         let timeSinceLast:CFTimeInterval = currentTime - self.lastUpdateTimeInterval!;
-        self.lastUpdateTimeInterval = currentTime;
+        lastUpdateTimeInterval = currentTime;
         
         if playerElement!.getX() + playerElement!.getWidth() > self.frame.width {
             playerElement!.move(self.frame.width - playerElement!.getWidth())
