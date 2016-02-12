@@ -139,17 +139,21 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         isServer = true
         scene!.ball?.addPhysicsBody()
         
-        browser!.browser.stopBrowsingForPeers()
+        browser!.browser!.stopBrowsingForPeers()
     }
     
     func session(session: MCSession, peer peerID: MCPeerID,
         didChangeState state: MCSessionState)  {
             // Called when a connected peer changes state (for example, goes offline)
-            if (state.rawValue == 2 && isServer) {
-                stream = self.session.startStreamWithName("client", toPeer: self.session.connectedPeers[0] as MCPeerID, error: &error)
-                stream?.open()
-                
-                print("Connection to server successful")
+            do {
+                if (state.rawValue == 2 && isServer) {
+                    try stream = self.session.startStreamWithName("client", toPeer: self.session.connectedPeers[0] as MCPeerID)
+                    stream?.open()
+                    
+                    print("Connection to server successful")
+                }
+            } catch {
+                print(error)
             }
     }
 }

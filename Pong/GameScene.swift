@@ -94,18 +94,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball?.center()
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
-        let touch:UITouch = touches.anyObject() as! UITouch
-        let location = touch.locationInNode(self)
+        let touch = touches.first
+        let location = touch!.locationInNode(self)
         
         lastPosition = location.x
         lastPlayerPosition = playerElement!.getX()
     }
     
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
-        let touch:UITouch = touches.anyObject() as! UITouch
-        let location = touch.locationInNode(self)
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first
+        let location = touch!.locationInNode(self)
         
         let currentPosition = location.x
         let newLocation = (lastPlayerPosition - lastPosition + currentPosition)
