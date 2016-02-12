@@ -120,7 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball!.setY(_y)
     }
     
-    var lastUpdateTimeInterval:CFTimeInterval? = CFTimeInterval.abs(0)
+    var lastUpdateTimeInterval:CFTimeInterval? = 0
    
     override func update(currentTime: CFTimeInterval) {
         let timeSinceLast:CFTimeInterval = currentTime - self.lastUpdateTimeInterval!;
@@ -153,6 +153,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let _x:NSString = NSString(format: "%.3f", Double(ball!.getX()));
             let _y:NSString = NSString(format: "%.3f", Double(ball!.getY()));
             viewController?.sendData("\(_x);\(_y)")
+            
+            updateWithTimeSinceLastUpdate(timeSinceLast)
         }
+    }
+    
+    func updateWithTimeSinceLastUpdate(time: CFTimeInterval) {
+        
     }
 }
