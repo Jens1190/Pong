@@ -113,11 +113,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerElement!.move(newLocation)
     }
     
-    func setBallPosition(x:String,y:String) {
-        let _x :CGFloat = CGFloat((x as NSString).floatValue)
-        let _y :CGFloat = CGFloat((y as NSString).floatValue)
-        ball!.setX(_x)
-        ball!.setY(_y)
+    func setBallPosition(x:Double,y:Double) {
+        ball!.setX(x)
+        ball!.setY(y)
     }
     
     var lastUpdateTimeInterval:CFTimeInterval? = 0
@@ -149,11 +147,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             opponent!.move(0)
         }
         
-        if (viewController!.isServer && timeSinceLast > 1) {
-            let _x:NSString = NSString(format: "%.3f", Double(ball!.getX()));
-            let _y:NSString = NSString(format: "%.3f", Double(ball!.getY()));
-            viewController?.sendData("\(_x);\(_y)")
+        if (viewController!.isServer) {
+            let dataToSend:NSMutableData = NSMutableData.init()
+            let archiver:NSKeyedArchiver = NSKeyedArchiver.init(forWritingWithMutableData: dataToSend)
+            archiver.encodeDouble(Double(ball!.getX()), forKey: "x")
+            archiver.encodeDouble(Double(ball!.getY()), forKey: "y")
+            archiver.finishEncoding()
             
+            viewController?.sendData(dataToSend)
         }
         
         updateWithTimeSinceLastUpdate(timeSinceLast)

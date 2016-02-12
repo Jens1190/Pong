@@ -51,11 +51,9 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         self.assistant.start()
     }
     
-    func sendData(data: String) {
-        let msg = data.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
-        
+    func sendData(data: NSMutableData) {
         do {
-            try session.sendData(msg, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
+            try session.sendData(data, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
         } catch {
             print (error)
         }
@@ -91,12 +89,11 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     func session(session: MCSession, didReceiveData data: NSData,
         fromPeer peerID: MCPeerID)  {
             
-        let output = NSString(data: data, encoding: NSUTF8StringEncoding)
-        if output?.rangeOfString(";").length > 0 {
-            print("\(output)")
-            var element = output!.componentsSeparatedByString(";")
-            self.scene?.setBallPosition(element[0] as String, y: element[1] as String)
-        }
+            let unarchiver:NSKeyedUnarchiver = NSKeyedUnarchiver.init(forReadingWithData: data)
+            let x:Double = unarchiver.decodeDoubleForKey("x")
+            let y:Double = unarchiver.decodeDoubleForKey("y")
+            
+            self.scene?.setBallPosition(x, y: y)
     }
     
     // The following methods do nothing, but the MCSessionDelegate protocol

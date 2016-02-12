@@ -62,8 +62,16 @@ class Ball {
         return ball.position.y
     }
     
+    func setX(_x:Double) {
+        setX(CGFloat(_x))
+    }
+    
     func setX(_x:CGFloat) {
          ball.position.x = _x
+    }
+    
+    func setY(_y:Double) {
+        setY(CGFloat(_y))
     }
     
     func setY(_y:CGFloat) {
