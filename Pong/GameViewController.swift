@@ -29,6 +29,7 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
         skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
         skView.showsPhysics = false
+        skView.frameInterval = 2
         scene?.scaleMode = .ResizeFill
         skView.presentScene(scene!)
         
@@ -53,7 +54,9 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     
     func sendData(data: NSMutableData) {
         do {
-            try session.sendData(data, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
+            if (!session.connectedPeers.isEmpty) {
+                try session.sendData(data, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Unreliable)
+            }
         } catch {
             print (error)
         }
@@ -92,6 +95,8 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
             let unarchiver:NSKeyedUnarchiver = NSKeyedUnarchiver.init(forReadingWithData: data)
             let x:Double = unarchiver.decodeDoubleForKey("x")
             let y:Double = unarchiver.decodeDoubleForKey("y")
+            
+            print ("\(x), \(y)")
             
             self.scene?.setBallPosition(x, y: y)
     }
