@@ -119,8 +119,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball!.setX(_x)
         ball!.setY(_y)
     }
+    
+    var lastUpdateTimeInterval:CFTimeInterval?
    
     override func update(currentTime: CFTimeInterval) {
+        let timeSinceLast:CFTimeInterval = currentTime - self.lastUpdateTimeInterval!;
+        self.lastUpdateTimeInterval = currentTime;
+        
         if playerElement!.getX() + playerElement!.getWidth() > self.frame.width {
             playerElement!.move(self.frame.width - playerElement!.getWidth())
         } else if playerElement!.getX() < 0 {
@@ -144,7 +149,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             opponent!.move(0)
         }
         
-        if (viewController!.isServer) {
+        if (viewController!.isServer && timeSinceLast > 1) {
             let _x:NSString = NSString(format: "%.3f", Double(ball!.getX()));
             let _y:NSString = NSString(format: "%.3f", Double(ball!.getY()));
             viewController?.sendData("\(_x);\(_y)")
