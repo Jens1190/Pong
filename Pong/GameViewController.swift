@@ -126,9 +126,11 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
                     let bytesRead = stream.read(&buffer, maxLength: bufferSize)
                     if bytesRead >= 0 {
                         let output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
-                        print("\(output!)")
-                        var element = output!.componentsSeparatedByString(";")
-                        self.scene?.setBallPosition(element[0] as String, y: element[1] as String)
+                        if ((output?.containsString(";")) != nil) {
+                            print("\(output!)")
+                            var element = output!.componentsSeparatedByString(";")
+                            self.scene?.setBallPosition(element[0] as String, y: element[1] as String)
+                        }
                     }
                 }
             }
