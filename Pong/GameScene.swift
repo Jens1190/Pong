@@ -154,11 +154,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let _y:NSString = NSString(format: "%.3f", Double(ball!.getY()));
             viewController?.sendData("\(_x);\(_y)")
             
-            updateWithTimeSinceLastUpdate(timeSinceLast)
         }
+        
+        updateWithTimeSinceLastUpdate(timeSinceLast)
     }
     
     func updateWithTimeSinceLastUpdate(time: CFTimeInterval) {
-        
+        lastUpdateTimeInterval! += time
     }
 }
