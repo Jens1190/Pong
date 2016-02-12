@@ -53,11 +53,11 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     
     func sendData(data: String) {
         let msg = data.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
-        stream?.write(UnsafePointer<UInt8>(msg.bytes), maxLength: msg.length)
-                print(msg.length)
-
-        if error != nil {
-            //println("Error: \(error?.localizedDescription)")
+        
+        do {
+            try session.sendData(msg, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
+        } catch {
+            print (error)
         }
     }
     
@@ -90,10 +90,13 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     
     func session(session: MCSession, didReceiveData data: NSData,
         fromPeer peerID: MCPeerID)  {
-            // Called when a peer sends an NSData to us
             
-            // This needs to run on the main queue
-            
+        let output = NSString(data: data, encoding: NSUTF8StringEncoding)
+        if output?.rangeOfString(";").length > 0 {
+            print("\(output)")
+            var element = output!.componentsSeparatedByString(";")
+            self.scene?.setBallPosition(element[0] as String, y: element[1] as String)
+        }
     }
     
     // The following methods do nothing, but the MCSessionDelegate protocol
@@ -114,26 +117,26 @@ class GameViewController: UIViewController, MCBrowserViewControllerDelegate, MCS
     
     func session(session: MCSession, didReceiveStream stream: NSInputStream,
         withName streamName: String, fromPeer peerID: MCPeerID)  {
-            // Called when a peer establishes a stream with us
-            let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-            dispatch_async(dispatch_get_global_queue(priority, 0)) {
-                stream.open()
-                
-                let bufferSize = 11
-                var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
-                
-                while(true) {
-                    let bytesRead = stream.read(&buffer, maxLength: bufferSize)
-                    if bytesRead >= 0 {
-                        let output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
-                        if output?.rangeOfString(";").length > 0 {
-                            print("\(output!)")
-                            var element = output!.componentsSeparatedByString(";")
-                            self.scene?.setBallPosition(element[0] as String, y: element[1] as String)
-                        }
-                    }
-                }
-            }
+//            // Called when a peer establishes a stream with us
+//            let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+//            dispatch_async(dispatch_get_global_queue(priority, 0)) {
+//                stream.open()
+//                
+//                let bufferSize = 11
+//                var buffer = Array<UInt8>(count: bufferSize, repeatedValue: 0)
+//                
+//                while(true) {
+//                    let bytesRead = stream.read(&buffer, maxLength: bufferSize)
+//                    if bytesRead >= 0 {
+//                        let output = NSString(bytes: &buffer, length: bytesRead, encoding: NSUTF8StringEncoding)
+//                        if output?.rangeOfString(";").length > 0 {
+//                            print("\(output!)")
+//                            var element = output!.componentsSeparatedByString(";")
+//                            self.scene?.setBallPosition(element[0] as String, y: element[1] as String)
+//                        }
+//                    }
+//                }
+//            }
     }
 
     func advertiserAssistantWillPresentInvitation(advertiserAssistant: MCAdvertiserAssistant) {

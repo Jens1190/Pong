@@ -11,7 +11,7 @@ import SpriteKit
 
 class Ball {
     
-    var customSpeed:CGFloat = 35
+    var customSpeed:CGFloat = 15
     
     var ball:SKShapeNode
     var physicsBody:SKPhysicsBody
