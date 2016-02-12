@@ -96,7 +96,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         /* Called when a touch begins */
-        let touch:UITouch = touches.anyObject() as UITouch
+        let touch:UITouch = touches.anyObject() as! UITouch
         let location = touch.locationInNode(self)
         
         lastPosition = location.x
@@ -104,18 +104,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
-        let touch:UITouch = touches.anyObject() as UITouch
+        let touch:UITouch = touches.anyObject() as! UITouch
         let location = touch.locationInNode(self)
         
-        var currentPosition = location.x
-        var newLocation = (lastPlayerPosition - lastPosition + currentPosition)
+        let currentPosition = location.x
+        let newLocation = (lastPlayerPosition - lastPosition + currentPosition)
         
         playerElement!.move(newLocation)
     }
     
     func setBallPosition(x:String,y:String) {
-        var _x :CGFloat = CGFloat((x as NSString).floatValue)
-        var _y :CGFloat = CGFloat((y as NSString).floatValue)
+        let _x :CGFloat = CGFloat((x as NSString).floatValue)
+        let _y :CGFloat = CGFloat((y as NSString).floatValue)
         ball!.setX(_x)
         ball!.setY(_y)
     }
@@ -128,8 +128,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         // Calculation for movement speed of opponent
-        var posXCenter = ceil(opponent!.getX() + opponent!.getWidth() / 2);
-        var ballX = ceil(ball!.getX())
+        let posXCenter = ceil(opponent!.getX() + opponent!.getWidth() / 2);
+        let ballX = ceil(ball!.getX())
         if (posXCenter < ballX - 10) {
             opponent!.velocityX(movementspeed)
         } else if (posXCenter > ballX + 10) {
@@ -145,8 +145,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if (viewController!.isServer) {
-            var _x:NSString = NSString(format: "%.3f", Double(ball!.getX()));
-            var _y:NSString = NSString(format: "%.3f", Double(ball!.getY()));
+            let _x:NSString = NSString(format: "%.3f", Double(ball!.getX()));
+            let _y:NSString = NSString(format: "%.3f", Double(ball!.getY()));
             viewController?.sendData("\(_x);\(_y)")
         }
     }

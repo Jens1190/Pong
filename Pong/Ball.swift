@@ -47,8 +47,8 @@ class Ball {
         
         ball.physicsBody = physicsBody
         
-        var rnX = CGFloat(arc4random_uniform(10)) * customSpeed
-        var rnY = CGFloat(arc4random_uniform(100)) * customSpeed
+        let rnX = CGFloat(arc4random_uniform(10)) * customSpeed
+        let rnY = CGFloat(arc4random_uniform(100)) * customSpeed
         
         physicsBody.velocity.dx = rnX
         physicsBody.velocity.dy = rnY
